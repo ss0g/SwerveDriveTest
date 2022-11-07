@@ -46,12 +46,17 @@ public class SwerveDriveSubsystem extends SubsystemBase {
             Translation2d location;
             SwerveModuleState state;
 
+            boolean driveInverted;
+            boolean angleInverted;
+
             switch(loc) {
                 case FL: {
                     driveMotorID = FrontLeft.kDriveMotorID;
                     angleMotorID = FrontLeft.kAngleMotorID;
                     encoderID = FrontLeft.kEncoderID;
                     location = new Translation2d(-kTrackWidth, kWheelBase);
+                    driveInverted = FrontLeft.kDriveMotorIsInverted;
+                    angleInverted = FrontLeft.kAngleMotorIsInverted;
                     break;
                 }
                 case FR: {
@@ -59,6 +64,8 @@ public class SwerveDriveSubsystem extends SubsystemBase {
                     angleMotorID = FrontRight.kAngleMotorID;
                     encoderID = FrontRight.kEncoderID;
                     location = new Translation2d(kTrackWidth, kWheelBase);
+                    driveInverted = FrontRight.kDriveMotorIsInverted;
+                    angleInverted = FrontRight.kAngleMotorIsInverted;
                     break;
                 }
                 case BL: {
@@ -66,6 +73,8 @@ public class SwerveDriveSubsystem extends SubsystemBase {
                     angleMotorID = BackLeft.kAngleMotorID;
                     encoderID = BackLeft.kEncoderID;
                     location = new Translation2d(-kTrackWidth, -kWheelBase);
+                    driveInverted = BackLeft.kDriveMotorIsInverted;
+                    angleInverted = BackLeft.kAngleMotorIsInverted;
                     break;
                 }
                 case BR: {
@@ -73,6 +82,8 @@ public class SwerveDriveSubsystem extends SubsystemBase {
                     angleMotorID = BackRight.kAngleMotorID;
                     encoderID = BackRight.kEncoderID;
                     location = new Translation2d(kTrackWidth, -kWheelBase);
+                    driveInverted = BackRight.kDriveMotorIsInverted;
+                    angleInverted = BackRight.kAngleMotorIsInverted;
                     break;
                 }
                 default: {
@@ -80,12 +91,17 @@ public class SwerveDriveSubsystem extends SubsystemBase {
                     angleMotorID = -1;
                     encoderID = -1;
                     location = new Translation2d();
+                    driveInverted = false;
+                    angleInverted = false;
                 }
             }
 
             mDriveMotor = kMotorConstructor.apply(driveMotorID);
             mAngleMotor = kMotorConstructor.apply(angleMotorID);
             mEncoder = new AnalogEncoder(encoderID);
+
+            mDriveMotor.setInverted(driveInverted);
+            mAngleMotor.setInverted(angleInverted);
 
             mDriveMotor.setIdleMode(IdleMode.kBrake);
             mAngleMotor.setIdleMode(IdleMode.kBrake);
