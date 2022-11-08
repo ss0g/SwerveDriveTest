@@ -53,6 +53,8 @@ public final class Constants {
             public static final boolean kAngleMotorIsInverted = false;
         }
 
+        public static final int kPigeonID = 9;
+
         public static final Function<Integer, CANSparkMax> kMotorConstructor = (Integer ID) -> { return new CANSparkMax(ID, MotorType.kBrushless); };
 
         public static final double kTrackWidth = 0.75; // meters

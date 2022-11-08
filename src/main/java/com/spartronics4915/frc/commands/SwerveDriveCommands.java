@@ -37,6 +37,7 @@ public class SwerveDriveCommands {
         @Override
         public void initialize() {}
 
+        // TODO: add a button to toggle field-oriented driving mode
         @Override
         public void execute() {
             double x1 = mController.getLeftX();
@@ -47,7 +48,10 @@ public class SwerveDriveCommands {
             y1 = applyTransformations(y1);
             x2 = applyTransformations(x2);
 
-            mSwerve.drive(x1, y1, x2);
+            Translation2d translation = new Translation2d(y1, -x1);
+            double rotation = -x2;
+
+            mSwerve.drive(translation, rotation, false);
         }
 
         @Override
