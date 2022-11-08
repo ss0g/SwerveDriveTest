@@ -193,7 +193,7 @@ public class SwerveDriveSubsystem extends SubsystemBase {
                 translation.getX(),
                 translation.getY(),
                 rotation,
-                new Rotation2d(Units.degreesToRadians(mIMU.getYaw())));
+                new Rotation2d(Units.degreesToRadians(-mIMU.getYaw())));
         } else {
             chassisSpeeds = new ChassisSpeeds(
                 translation.getX() * kFreeSpeedMetersPerSecond,
